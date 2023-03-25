@@ -54,7 +54,7 @@ func (c *Context) String(code int, format string, values ...interface{}) {
 	c.Writer.Write([]byte(fmt.Sprintf(format, values...)))
 }
 func (c *Context) JSON(code int, obj interface{}) {
-	c.SetHeader("Context-Type", "application/json")
+	c.SetHeader("Content-Type", "application/json")
 	c.Status(code)
 	encoder := json.NewEncoder(c.Writer)
 	if err := encoder.Encode(obj); err != nil {
@@ -68,7 +68,7 @@ func (c *Context) Data(code int, data []byte) {
 }
 
 func (c *Context) HTML(code int, html string) {
-	c.SetHeader("Context-Type", "text/html")
+	c.SetHeader("Content-Type", "text/html")
 	c.Status(code)
 	c.Writer.Write([]byte(html))
 }
